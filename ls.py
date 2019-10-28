@@ -13,9 +13,11 @@ import logging
 import os
 import sys
 import re
+
 from util import *
 
 log = logging.getLogger(__name__)
+loglevel = logging.DEBUG
 
 dirpath = os.getcwd()
 foldername = os.path.basename(dirpath)
@@ -65,12 +67,12 @@ def is_visible(name, args):
 def ls(path, args):
     """Main function called by main"""
 
-    for root, dirs, files in os.walk(dirpath, topdown=True):
-        if args["recursive"] or root == dirpath:
+    for root, dirs, files in os.walk(path, topdown=True):
+        if args["recursive"] or root == path:
 
-            if args["l"] or args["recursive"]:
+            if args["recursive"]:
                 if not args["folders"]:
-                    print("."+re.sub(r'%s' % (dirpath), '', root, 1)+":")
+                    print("."+re.sub(r'%s' % (path), '', root, 1)+":")
                 else:
                     print(root+":")
 
@@ -79,35 +81,56 @@ def ls(path, args):
                 dirs[:] = sorted([d for d in dirs if d[0] != '.'], reverse=args["reverse"])
             for name in sorted(dirs, reverse=args["reverse"]):
                 if is_visible(name, args):
-                    if args["l"]:
-                        print("-\t", end='')
-                    if args["c"]:
-                        print("-\t", end='')
+                    if args["directory"]:
+                        directory = os.path.join(root, name)
+                        # print(path)
+                        # print(name)
+                        # print(os.listdir(path))
+                        # Display the number of files contained inside the folder
+                        try:
+                            print(len([f for f in os.listdir(directory)
+                                        if os.path.isfile(os.path.join(directory, f)) and is_visible(f, args)]),
+                                        end='\t')
+                        except PermissionError:
+                            log.warning("Impossible de parcourir le contenu du dossier : " + directory)
+                            print("-\t", end='')
+                    if not args["directory"]:
+                        if args["l"]:
+                            print("-\t", end='')
+                        if args["c"]:
+                            print("-\t", end='')
                     print(Color.BOLD + Color.OKBLUE + name + Color.ENDC)
             if not args["directory"]:
                 for name in sorted(files, reverse=args["reverse"]):
                     if is_visible(name, args):
                         if args["c"]:
                             # TODO : test if we have a text file or not ?
+                            print(Color.WARNING, end='')
                             try:
                                 length = len(open(os.path.join(root, name), "r").readlines())
                                 print(Color.WARNING + str(length) + Color.ENDC + "\t", end='')
                             except IOError:
-                                log.error("Problème lors de la lecture du fichier " + name)
+                                log.warning("Problème lors de la lecture du fichier " + name)
+                                print("-\t", end='')
                             except UnicodeDecodeError:
                                 log.info("Echec du décodage du fichier " + name)
+                                print("-\t", end='')
+                            print(Color.ENDC, end='')
+
                         if args["l"]:
                             statinfo = os.stat(os.path.join(root, name))
                             print(Color.OKGREEN + str(statinfo.st_size) + Color.ENDC + "\t", end='')
                         print(name)
             print()
+        else:
+            break
 
 def main():
     "Entry point for the ls program"
 
     logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        level=logging.DEBUG,
+        level=loglevel,
         datefmt='%Y/%m/%d %H:%M:%S'
     )
 
@@ -116,7 +139,11 @@ def main():
     horizontal_line()
     args = parse_args()
     horizontal_line()
-    ls(dirpath, args)
+    if not args["folders"]:
+        ls(dirpath, args)
+    else:
+        for dir in args["folders"]:
+            ls(dir, args)
     horizontal_line()
     # walk(dirpath)
 

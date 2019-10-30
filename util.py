@@ -9,6 +9,7 @@ ff4 = '{:.4f}'
 ff3 = '{:.3f}'
 ff2 = '{:.2f}'
 ff1 = '{:.1f}'
+ff0 = '{:.0f}'
 
 
 # print percent bar. fraction must be float between 0 and 1
@@ -48,3 +49,6 @@ class Color:
     ENDC = '\033[0m' if is_linux and format_enabled else ''
     BOLD = '\033[1m' if is_linux and format_enabled else ''
     UNDERLINE = '\033[4m' if is_linux and format_enabled else ''
+    YELLOW = '\033[33m' if is_linux and format_enabled else ''
+    MAGENTA = '\033[35m' if is_linux and format_enabled else ''
+    CYAN = '\033[36m' if is_linux and format_enabled else ''

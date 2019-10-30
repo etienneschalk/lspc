@@ -6,6 +6,18 @@
 || lspc - python's ls for polyconseil                                         ||
 //============================================================================//
 
+Functions:
+
+parse_args()
+ls(start_path, args)
+is_visible(name, args)
+print_directory_titles(root, start_path, args)
+print_file(root, name, args):
+print_directory(root, name, args):
+print_size(root, name)
+print_nb_lines(root, name, args)
+print_nb_files(root, name, args)
+
 --------------------------------------------------------------------------------
 """
 
@@ -32,7 +44,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="ls avec python",
         add_help=False)
 
-    parser.add_argument("folders", metavar="folders", type=str, nargs="*",
+    parser.add_argument("directories", metavar="directories", type=str, nargs="*",
         help="chemins des dossiers à lister")
 
     parser.add_argument("-a", "--all",
@@ -65,18 +77,18 @@ def parse_args():
     return args
 
 
-def ls(path, args):
+def ls(start_path, args):
     """ Main ls function """
 
     # Browsing directories top down
-    for root, dirs, files in os.walk(path, topdown=True):
+    for root, dirs, files in os.walk(start_path, topdown=True):
 
         # Continue to browse, if recursive browsing or top level folder
-        if args["recursive"] or root == path:
+        if args["recursive"] or root == start_path:
 
             # Print the title of the folder being browsed
             if args["recursive"]:
-                print_folder_titles(root, path, args)
+                print_directory_titles(root, start_path, args)
 
             # Removing hidden files and folder from the list
             if not args["all"]:
@@ -96,7 +108,7 @@ def ls(path, args):
             print()
 
         else:
-            break # Exit the loop to prevent exploring lower-level folders
+            break # Exit the loop to prevent exploring lower-level directories
 
 
 def is_visible(name, args):
@@ -105,15 +117,16 @@ def is_visible(name, args):
     return args["all"] or name[0] != '.'
 
 
-def print_folder_titles(root, path, args):
+def print_directory_titles(root, start_path, args):
     """
-    Print folder titles before listing their content,
-    if the recursive option is given.
-    If no folders are given to the script, the prefix is a point
-    Otherwise, the folders names are printed
+    Print directory titles before listing their content, if the recursive option
+    is given.
+    If no driectories are given to the script, the prefix is a point
+    Otherwise, the directories names are printed
     """
+
     print(Color.YELLOW, end='')
-    if args["folders"]:
+    if args["directories"]:
         print(root+":")
     else:
         print("."+re.sub(r'%s' % (path), '', root, 1)+":")
@@ -150,7 +163,10 @@ def print_size(root, name):
     size = statinfo.st_size
     prefix = ""
 
-    if size > 1e9:
+    if size > 1e12:
+        prefix = "T"
+        size /= 1e12
+    elif size > 1e9:
         prefix = "G"
         size /= 1e9
     elif size > 1e6:
@@ -160,14 +176,12 @@ def print_size(root, name):
         prefix = "k"
         size /= 1e3
 
-
     print(Color.OKGREEN + str(ff0.format(size)) + " " + prefix + "B" + Color.ENDC + "\t", end='')
 
 
 def print_nb_lines(root, name, args):
     """ Tries to get the number of lines of a file, by scanning it """
 
-    # TODO : test if we have a text file or not ?
     print(Color.WARNING, end='')
     try:
         length = len(open(os.path.join(root, name), "r").readlines())
@@ -185,7 +199,6 @@ def print_nb_files(root, name, args):
     """ Tries to get the number of files contained in a folder """
 
     directory = os.path.join(root, name)
-
     try:
         print(len([f for f in os.listdir(directory)
             if os.path.isfile(os.path.join(directory, f))
@@ -206,17 +219,17 @@ def main():
     )
 
     log.info("ls started")
-    log.info("Dirpath " + dirpath)
+    log.info("[dirpath: " + dirpath + "]")
 
     args = parse_args()
 
     # Execute ls for the current folder
-    if not args["folders"]:
+    if not args["directories"]:
         ls(dirpath, args)
 
-    # Execute ls for all given folders
+    # Execute ls for all given directories
     else:
-        for dir in args["folders"]:
+        for dir in args["directories"]:
             ls(dir, args)
 
     log.info("ls finished")

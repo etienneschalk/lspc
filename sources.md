@@ -21,3 +21,9 @@ https://stackoverflow.com/questions/10989005/do-i-understand-os-walk-right
 
 Argparse
 https://docs.python.org/3/library/argparse.html
+
+Article on python testing
+https://realpython.com/python-testing/
+
+Unittest doc
+https://docs.python.org/3/library/unittest.html

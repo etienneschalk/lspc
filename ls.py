@@ -17,6 +17,7 @@ print_directory(root, name, args):
 print_size(root, name)
 print_nb_lines(root, name, args)
 print_nb_files(root, name, args)
+format_size(size)
 
 --------------------------------------------------------------------------------
 """
@@ -129,7 +130,7 @@ def print_directory_titles(root, start_path, args):
     if args["directories"]:
         print(root+":")
     else:
-        print("."+re.sub(r'%s' % (path), '', root, 1)+":")
+        print("."+re.sub(r'%s' % (start_path), '', root, 1)+":")
     print(Color.ENDC, end='')
 
 
@@ -161,22 +162,29 @@ def print_size(root, name):
 
     statinfo = os.stat(os.path.join(root, name))
     size = statinfo.st_size
+
+    print(Color.OKGREEN + format_size(size) + Color.ENDC + "\t", end='')
+
+
+def format_size(size):
+    """ Format the big size numbers """
+
     prefix = ""
 
-    if size > 1e12:
+    if size >= 1e12:
         prefix = "T"
         size /= 1e12
-    elif size > 1e9:
+    elif size >= 1e9:
         prefix = "G"
         size /= 1e9
-    elif size > 1e6:
+    elif size >= 1e6:
         prefix = "M"
         size /= 1e6
-    elif size > 1e3:
+    elif size >= 1e3:
         prefix = "k"
         size /= 1e3
 
-    print(Color.OKGREEN + str(ff0.format(size)) + " " + prefix + "B" + Color.ENDC + "\t", end='')
+    return str(ff0.format(size)) + " " + prefix + "B"
 
 
 def print_nb_lines(root, name, args):

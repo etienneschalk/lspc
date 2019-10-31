@@ -2,7 +2,6 @@ import unittest
 
 from informations_tests import *
 
-from ls import print_size
 from ls import format_size
 
 class TestFormatSize(unittest.TestCase):

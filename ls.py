@@ -10,14 +10,14 @@ Functions:
 
 parse_args()
 ls(start_path, args)
-is_visible(name, args)
+T is_visible(name, args)
 print_directory_titles(root, start_path, args)
 print_file(root, name, args):
 print_directory(root, name, args):
-print_size(root, name)
-print_nb_lines(root, name, args)
+T print_size(root, name)
+T print_nb_lines(root, name)
 print_nb_files(root, name, args)
-format_size(size)
+T format_size(size)
 
 --------------------------------------------------------------------------------
 """
@@ -114,7 +114,8 @@ def ls(start_path, args):
 
 def is_visible(name, args):
     """ Indicates if the file or folder must be displayed """
-
+    if not name:
+        raise ValueError("Cannot determine the visibility of an empty name.")
     return args["all"] or name[0] != '.'
 
 
@@ -138,7 +139,7 @@ def print_file(root, name, args):
     """ Printing a file """
 
     if(args["c"]):
-        print_nb_lines(root, name, args)
+        print_nb_lines(root, name)
     if args["l"]:
         print_size(root, name)
     print(name)
@@ -187,20 +188,17 @@ def format_size(size):
     return str(ff0.format(size)) + " " + prefix + "B"
 
 
-def print_nb_lines(root, name, args):
+def print_nb_lines(root, name):
     """ Tries to get the number of lines of a file, by scanning it """
 
-    print(Color.WARNING, end='')
     try:
-        length = len(open(os.path.join(root, name), "r").readlines())
+        file = open(os.path.join(root, name), "r")
+        length = len(file.readlines())
+        file.close()
         print(Color.WARNING + str(length) + Color.ENDC + "\t", end='')
-    except IOError:
-        log.warning("Problème lors de la lecture du fichier " + name)
-        print("-\t", end='')
     except UnicodeDecodeError:
         log.info("Echec du décodage du fichier " + name)
         print("-\t", end='')
-    print(Color.ENDC, end='')
 
 
 def print_nb_files(root, name, args):

@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # creates sample directory
-rm -rf sample
-mkdir sample
-cd sample
+rm -rf ../sample
+mkdir ../sample
+cd ../sample
 mkdir \
   dir0 \
   dir1 \

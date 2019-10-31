@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+# coding=utf-8
 
 """
 //============================================================================//
@@ -10,13 +10,13 @@ Functions:
 
 parse_args()
 ls(start_path, args)
-T is_visible(name, args)
-print_directory_titles(root, start_path, args)
 print_file(root, name, args):
 print_directory(root, name, args):
+print_directory_titles(root, start_path, args)
+T is_visible(name, args)
 T print_size(root, name)
 T print_nb_lines(root, name)
-print_nb_files(root, name, args)
+T print_nb_files(root, name, args)
 T format_size(size)
 
 --------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ def parse_args():
 
 def ls(start_path, args):
     """ Main ls function """
-
+    
     # Browsing directories top down
     for root, dirs, files in os.walk(start_path, topdown=True):
 
@@ -112,29 +112,6 @@ def ls(start_path, args):
             break # Exit the loop to prevent exploring lower-level directories
 
 
-def is_visible(name, args):
-    """ Indicates if the file or folder must be displayed """
-    if not name:
-        raise ValueError("Cannot determine the visibility of an empty name.")
-    return args["all"] or name[0] != '.'
-
-
-def print_directory_titles(root, start_path, args):
-    """
-    Print directory titles before listing their content, if the recursive option
-    is given.
-    If no driectories are given to the script, the prefix is a point
-    Otherwise, the directories names are printed
-    """
-
-    print(Color.YELLOW, end='')
-    if args["directories"]:
-        print(root+":")
-    else:
-        print("."+re.sub(r'%s' % (start_path), '', root, 1)+":")
-    print(Color.ENDC, end='')
-
-
 def print_file(root, name, args):
     """ Printing a file """
 
@@ -156,6 +133,29 @@ def print_directory(root, name, args):
         if args["c"]:
             print("-\t", end='')
     print(Color.BOLD + Color.OKBLUE + name + Color.ENDC)
+
+
+def print_directory_titles(root, start_path, args):
+    """
+    Print directory titles before listing their content, if the recursive option
+    is given.
+    If no driectories are given to the script, the prefix is a point
+    Otherwise, the directories names are printed
+    """
+
+    print(Color.YELLOW, end='')
+    if args["directories"]:
+        print(root+":")
+    else:
+        print("."+re.sub(r'%s' % (start_path), '', root, 1)+":")
+    print(Color.ENDC, end='')
+
+
+def is_visible(name, args):
+    """ Indicates if the file or folder must be displayed """
+    if not name:
+        raise ValueError("Cannot determine the visibility of an empty name.")
+    return args["all"] or name[0] != '.'
 
 
 def print_size(root, name):
@@ -210,7 +210,7 @@ def print_nb_files(root, name, args):
             if os.path.isfile(os.path.join(directory, f))
             and is_visible(f, args)]), end='\t')
     except PermissionError:
-        log.warning("Impossible de parcourir le contenu du dossier : "
+        log.info("Impossible de parcourir le contenu du dossier : "
                     + directory)
         print("-\t", end='')
 

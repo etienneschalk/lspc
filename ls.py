@@ -80,7 +80,7 @@ def parse_args():
 
 def ls(start_path, args):
     """ Main ls function """
-    
+
     # Browsing directories top down
     for root, dirs, files in os.walk(start_path, topdown=True):
 
@@ -89,7 +89,7 @@ def ls(start_path, args):
 
             # Print the title of the folder being browsed
             if args["recursive"]:
-                print_directory_titles(root, start_path, args)
+                print_directory_title(root, start_path, args)
 
             # Removing hidden files and folder from the list
             if not args["all"]:
@@ -135,11 +135,11 @@ def print_directory(root, name, args):
     print(Color.BOLD + Color.OKBLUE + name + Color.ENDC)
 
 
-def print_directory_titles(root, start_path, args):
+def print_directory_title(root, start_path, args):
     """
     Print directory titles before listing their content, if the recursive option
     is given.
-    If no driectories are given to the script, the prefix is a point
+    If no directories are given to the script, the prefix is a point
     Otherwise, the directories names are printed
     """
 

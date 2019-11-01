@@ -4,7 +4,6 @@
 import platform
 is_linux = platform.system() == "Linux"
 format_enabled = True
-# format_enabled = False
 
 # easy float formatting. usage: ffn.format(floatNumber)
 ff4 = '{:.4f}'
@@ -14,8 +13,9 @@ ff1 = '{:.1f}'
 ff0 = '{:.0f}'
 
 
-# print percent bar. fraction must be float between 0 and 1
 def print_percent_bar(fraction, size=50, newLine=True):
+    """ Print percent bar. Fraction must be a float between 0 and 1 """
+
     if fraction > 1 or fraction < 0:
         return()
     squares = fraction * size
@@ -28,13 +28,13 @@ def print_percent_bar(fraction, size=50, newLine=True):
     print(bar, mid, nobar, sep='', end= '\n' if newLine else '')
 
 
-# print dots
 def print_dots(numberOfDots=10, newLine=True, char="■"):
+    """ Print dots """
     print(char * numberOfDots, sep='', end= '\n' if newLine else '')
 
 
-# print horizontal line
 def horizontal_line(bold=0, size=80):
+    """ Print horizontal line """
     if bold:
         print("=" * size)
     else:
@@ -49,6 +49,8 @@ class Format:
         self.enable(activation)
 
     def enable(self, activation):
+        """ Enable or disable the colored text output """
+
         if activation:
             self.HEADER = '\033[95m'
             self.OKBLUE = '\033[94m'
@@ -73,18 +75,6 @@ class Format:
             self.YELLOW = ''
             self.MAGENTA = ''
 
-# format singleton:
+# format singleton, can be used everywhere where util is imported:
 format = Format(is_linux and format_enabled)
-
-# class ColorCode:
-#     HEADER = '\033[95m' if is_linux and format_enabled else ''
-#     OKBLUE = '\033[94m' if is_linux and format_enabled else ''
-#     OKGREEN = '\033[92m' if is_linux and format_enabled else ''
-#     WARNING = '\033[93m' if is_linux and format_enabled else ''
-#     FAIL = '\033[91m' if is_linux and format_enabled else ''
-#     ENDC = '\033[0m' if is_linux and format_enabled else ''
-#     BOLD = '\033[1m' if is_linux and format_enabled else ''
-#     UNDERLINE = '\033[4m' if is_linux and format_enabled else ''
-#     YELLOW = '\033[33m' if is_linux and format_enabled else ''
-#     MAGENTA = '\033[35m' if is_linux and format_enabled else ''
-#     CYAN = '\033[36m' if is_linux and format_enabled else ''
+# the colored output can be toggled with format.enable(True|False)

@@ -6,13 +6,14 @@
 || lspc - python's ls for polyconseil                                         ||
 //============================================================================//
 
-Functions:
+Functions in this script:
+(T = unit-tested)
 
 parse_args()
 ls(start_path, args)
 print_file(root, name, args):
 print_directory(root, name, args):
-print_directory_titles(root, start_path, args)
+T print_directory_titles(root, start_path, args)
 T is_visible(name, args)
 T print_size(root, name)
 T print_nb_lines(root, name)
@@ -48,7 +49,8 @@ def parse_args():
     parser = argparse.ArgumentParser(description="ls avec python",
         add_help=False)
 
-    parser.add_argument("directories", metavar="directories", type=str, nargs="*",
+    parser.add_argument("directories", metavar="directories",
+        type=str, nargs="*",
         help="chemins des dossiers à lister")
 
     parser.add_argument("-a", "--all",
@@ -94,7 +96,7 @@ def ls(start_path, args):
             if args["recursive"]:
                 print_directory_title(root, start_path, args)
 
-            # Removing hidden files and folder from the list
+            # Removing hidden files and folders from the list
             if not args["all"]:
                 files = [f for f in files if f[0] != '.']
                 dirs[:] = [d for d in dirs if d[0] != '.']
@@ -235,7 +237,7 @@ def main():
 
     args = parse_args()
 
-    # Execute ls for the current folder
+    # Execute ls from the directory in which the script was launched
     if not args["directories"]:
         ls(dirpath, args)
 

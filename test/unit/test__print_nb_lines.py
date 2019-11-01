@@ -9,6 +9,7 @@ from ls import print_nb_lines
 
 format.enable(False)
 
+
 class TestPrintNbLines(unittest.TestCase):
 
     def test_print_nb_lines_files(self):

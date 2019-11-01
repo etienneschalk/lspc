@@ -1,5 +1,5 @@
 
-# -c and -l options are not tested since they are alredy unit-tested
+# -c and -l options are not tested in this integration test
 
 import io
 import re
@@ -13,10 +13,14 @@ from ls import ls
 
 format.enable(False)
 
-# We consider the case where we pass 1 directory arg to ls
-# so we fill the directories array with one item : root ("./sample/")
+
 def find_args(string_args):
-    """ Parse args """
+    """
+    Parse args
+
+    We consider the case where we pass 1 directory arg to ls
+    so we fill the directories array with one item : root ("./sample/")
+    """
 
     args = {
         "directories": [root],
@@ -142,7 +146,8 @@ class TestLs(unittest.TestCase):
             for line, predicted_line in zip(lines, predicted_list):
                 self.assertEqual(
                     line,
-                    format_directory_predicted_line(predicted_line, directory_information, args["all"])
+                    format_directory_predicted_line(predicted_line,
+                        directory_information, args["all"])
                 )
 
         sys.stdout = sys.__stdout__
@@ -170,7 +175,8 @@ class TestLs(unittest.TestCase):
 
             # Compare the obtained list of directories titles and list of files
             # to the expected one
-            for obtained_list, expected_list in zip(dict_lines.items(), predicted_list.items()):
+            for obtained_list, expected_list in zip(
+                dict_lines.items(), predicted_list.items()):
 
                 # Compare the directory name obtained to the expected one
                 self.assertEqual(obtained_list[0], root + expected_list[0] + ":")
@@ -203,7 +209,8 @@ class TestLs(unittest.TestCase):
 
             # Compare the obtained list of directories titles and list of files
             # to the expected one
-            for obtained_list, expected_list in zip(dict_lines.items(), predicted_list.items()):
+            for obtained_list, expected_list in zip(dict_lines.items(),
+                predicted_list.items()):
 
                 # Compare the directory name obtained to the expected one
                 self.assertEqual(obtained_list[0], root + expected_list[0] + ":")
@@ -211,7 +218,8 @@ class TestLs(unittest.TestCase):
                 # Compare the lists of files associated to this directory
                 self.assertEqual(
                     obtained_list[1],
-                    format_directory_predicted_lines(expected_list[1], directory_information, args["all"])
+                    format_directory_predicted_lines(expected_list[1],
+                        directory_information, args["all"])
                 )
 
         sys.stdout = sys.__stdout__

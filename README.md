@@ -51,3 +51,17 @@ and then running the unittest module:
 ```
 $ python3 -m unittest discover
 ```
+
+### Running unit / integration tests
+
+For testing the whole ls program:
+
+```
+$ python3 -m unittest discover -s test/integration
+```
+
+For running only unit tests:
+
+```
+$ python3 -m unittest discover -s test/unit
+```

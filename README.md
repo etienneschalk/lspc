@@ -63,7 +63,7 @@ $ ./scripts/run_tests.sh
 
 This will first generate the sample folder used by unit tests, and then run the unit tests.
 
-You can also just create the test folder (it is already created, but you can recreate it), with:
+You can also just create the test folder, with:
 
 ```
 $ ./scripts/make_test_folders.sh

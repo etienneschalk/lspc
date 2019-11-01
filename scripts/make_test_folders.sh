@@ -1,9 +1,13 @@
 #!/bin/sh
 
-# creates sample directory
-rm -rf ../sample
-mkdir ../sample
-cd ../sample
+# This script should be launched from the main folder of the project
+# (when running `run_tests.sh` script)
+
+# Creates sample directory
+rm -rf sample
+mkdir sample
+cd sample
+pwd
 mkdir \
   dir0 \
   dir1 \

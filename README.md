@@ -55,7 +55,7 @@ arguments optionnels:
 
 ## Running the tests
 
-You can run the tests by executing the script:
+You can run the tests by executing the following script (you must be positioned in the root folder of the project): 
 
 ```
 $ ./scripts/run_tests.sh

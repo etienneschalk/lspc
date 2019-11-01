@@ -94,8 +94,9 @@ def ls(start_path, args):
             # Removing hidden files and folder from the list
             if not args["all"]:
                 files = [f for f in files if f[0] != '.']
-                dirs[:] = sorted([d for d in dirs if d[0] != '.'],
-                                    reverse=args["reverse"])
+                dirs[:] = [d for d in dirs if d[0] != '.']
+                
+            dirs[:] = sorted(dirs, reverse=args["reverse"])
 
             # Print the list of directories
             for name in sorted(dirs, reverse=args["reverse"]):

@@ -8,6 +8,8 @@ from util import *
 from ls import print_size
 from ls import format_size
 
+format.enable(False)
+
 class TestPrintSize(unittest.TestCase):
 
     def test_file(self):
@@ -18,7 +20,7 @@ class TestPrintSize(unittest.TestCase):
             capturedOutput = io.StringIO()
             sys.stdout = capturedOutput
             print_size(root, file_info["path"])
-            expectedPrint = Color.OKGREEN + format_size(file_info["bytes"]) + Color.ENDC + "\t"
+            expectedPrint = format_size(file_info["bytes"]) + "\t"
             self.assertEqual(capturedOutput.getvalue(), expectedPrint)
 
         sys.stdout = sys.__stdout__
@@ -34,7 +36,7 @@ class TestPrintSize(unittest.TestCase):
             capturedOutput = io.StringIO()
             sys.stdout = capturedOutput
             print_size(root, dir_info["path"])
-            expectedPrint = Color.OKGREEN + directory_size + Color.ENDC + "\t"
+            expectedPrint = directory_size + "\t"
             self.assertEqual(capturedOutput.getvalue(), expectedPrint)
 
         sys.stdout = sys.__stdout__

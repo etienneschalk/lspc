@@ -15,7 +15,7 @@ class TestPrintNbFiles(unittest.TestCase):
         args = { "all": True }
         for file_info in file_information:
             # The "big" file is generated randomly, thus the lines are not known in advance.
-            if file_info["name"] == "dir2_A_filebig":
+            if file_info["name"] == "dir2_B_filebig":
                 continue
 
             # Capture the standard output

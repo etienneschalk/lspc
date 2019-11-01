@@ -35,8 +35,11 @@ from util import *
 log = logging.getLogger(__name__)
 loglevel = logging.WARNING
 
-dirpath = os.getcwd()
-foldername = os.path.basename(dirpath)
+try:
+    dirpath = os.getcwd()
+    foldername = os.path.basename(dirpath)
+except FileNotFoundError:
+    exit("Directory path cannot be obtained")
 
 
 def parse_args():
@@ -95,7 +98,7 @@ def ls(start_path, args):
             if not args["all"]:
                 files = [f for f in files if f[0] != '.']
                 dirs[:] = [d for d in dirs if d[0] != '.']
-                
+
             dirs[:] = sorted(dirs, reverse=args["reverse"])
 
             # Print the list of directories
@@ -133,7 +136,7 @@ def print_directory(root, name, args):
             print("-\t", end='')
         if args["c"]:
             print("-\t", end='')
-    print(Color.BOLD + Color.OKBLUE + name + Color.ENDC)
+    print(format.BOLD + format.OKBLUE + name + format.ENDC)
 
 
 def print_directory_title(root, start_path, args):
@@ -144,12 +147,12 @@ def print_directory_title(root, start_path, args):
     Otherwise, the directories names are printed
     """
 
-    print(Color.YELLOW, end='')
+    print(format.YELLOW, end='')
     if args["directories"]:
         print(root+":")
     else:
         print("."+re.sub(r'%s' % (start_path), '', root, 1)+":")
-    print(Color.ENDC, end='')
+    print(format.ENDC, end='')
 
 
 def is_visible(name, args):
@@ -162,10 +165,12 @@ def is_visible(name, args):
 def print_size(root, name):
     """ Tries to get the size of a file (in bytes) """
 
-    statinfo = os.stat(os.path.join(root, name))
-    size = statinfo.st_size
-
-    print(Color.OKGREEN + format_size(size) + Color.ENDC + "\t", end='')
+    try:
+        statinfo = os.stat(os.path.join(root, name))
+        size = statinfo.st_size
+        print(format.OKGREEN + format_size(size) + format.ENDC + "\t", end='')
+    except FileNotFoundError:
+        log.info("File " + name + " not found.")
 
 
 def format_size(size):
@@ -196,7 +201,7 @@ def print_nb_lines(root, name):
         file = open(os.path.join(root, name), "r")
         length = len(file.readlines())
         file.close()
-        print(Color.WARNING + str(length) + Color.ENDC + "\t", end='')
+        print(format.WARNING + str(length) + format.ENDC + "\t", end='')
     except UnicodeDecodeError:
         log.info("Echec du décodage du fichier " + name)
         print("-\t", end='')

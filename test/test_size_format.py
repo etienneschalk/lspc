@@ -28,8 +28,8 @@ class TestFormatSize(unittest.TestCase):
             1e15: "1000 TB",
         }
 
-        for size, format in expected_format.items():
-            self.assertEqual(format_size(size), format)
+        for size, format_ in expected_format.items():
+            self.assertEqual(format_size(size), format_)
 
 
 if __name__ == '__main__':

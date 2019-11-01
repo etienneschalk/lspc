@@ -1,3 +1,5 @@
+# All information on the "sample" folder
+
 root = "./sample/"
 
 file_information = [
@@ -47,8 +49,8 @@ file_information = [
     "lines": None,
     "words": None,
     "bytes": 10241024,
-    "path": "dir2/dir2_B/dir2_A_filebig",
-    "name": "dir2_A_filebig",
+    "path": "dir2/dir2_B/dir2_B_filebig",
+    "name": "dir2_B_filebig",
     "hidden" : False
 }
 ]
@@ -120,3 +122,127 @@ directory_information = [
     "hidden" : True
 }
 ]
+
+# 6 options = 64 combinations
+options = "Racldr"
+# -d option overrides l and c
+# -> we can eliminate 3 * 8 = 24 non-sense combinations
+# ( d[Rar]lc -> l = false, c = false for each of the 8 [Rar] combinations)
+# 64 - 24 = 40 combinations
+
+# Moreover, the l and c options only display information already known in
+# file_information and directory_information -> the list displayed are the same
+# but with extra info to test -> 16 combinations to test, with 4 info variants
+
+# The folders are always displayed before files.
+predicted_lists_simple = {
+    "": [
+        "dir0", "dir1", "dir2", "file0"
+    ],
+    "a": [
+        ".dirhidden", "dir0", "dir1", "dir2", "file0"
+    ],
+    "r": [
+        "dir2", "dir1", "dir0", "file0"
+    ],
+    "ar": [
+        "dir2", "dir1", "dir0", ".dirhidden", "file0"
+    ]
+}
+
+predicted_lists_simple_directories = {
+    "d": [
+        "dir0", "dir1", "dir2"
+    ],
+    "rd": [
+        "dir2", "dir1", "dir0"
+    ],
+    "ad": [
+        ".dirhidden", "dir0", "dir1", "dir2"
+    ],
+    "ard": [
+        "dir2", "dir1", "dir0", ".dirhidden"
+    ]
+}
+
+predicted_lists_recursive = {
+    "R": {
+        "": [ "dir0", "dir1", "dir2", "file0" ],
+        "dir0": [],
+        "dir1": [ "dir1_A", "dir1_file0" ],
+        "dir1/dir1_A": [],
+        "dir2": [ "dir2_A", "dir2_B" ],
+        "dir2/dir2_A": [ "dir2_A_file0", "dir2_A_file1" ],
+        "dir2/dir2_B": [ "dir2_B_filebig" ]
+    },
+    "Ra": {
+        "": { ".dirhidden", "dir0", "dir1", "dir2", "file0" },
+        ".dirhidden": { ".dirhidden_filehidden" },
+        "dir0": {},
+        "dir1": { "dir1_A", ".dir1_filehidden", "dir1_file0" },
+        "dir1/dir1_A": {},
+        "dir2": { "dir2_A", "dir2_B" },
+        "dir2/dir2_A": { "dir2_A_file0", "dir2_A_file1" },
+        "dir2/dir2_B": { "dir2_B_filebig" }
+    },
+    "Rr": {
+        "": { "dir2", "dir1", "dir0", "file0" },
+        "dir2": { "dir2_B", "dir2_A" },
+        "dir2/dir2_B": { "dir2_B_filebig" },
+        "dir2/dir2_A": { "dir2_A_file1", "dir2_A_file0" },
+        "dir1": { "dir1_A", "dir1_file0" },
+        "dir1/dir1_A": {},
+        "dir0": {}
+    },
+    "Rar": {
+        "": { "dir2", "dir1", "dir0", ".dirhidden", "file0" },
+        "dir2": { "dir2_B", "dir2_A" },
+        "dir2/dir2_B": { "dir2_B_filebig" },
+        "dir2/dir2_A": { "dir2_A_file1", "dir2_A_file0" },
+        "dir1": { "dir1_A", "dir1_file0", ".dir1_filehidden" },
+        "dir1/dir1_A": {},
+        "dir0": {},
+        ".dirhidden": { ".dirhidden_filehidden" }
+    }
+}
+
+predicted_lists_recursive_directories = {
+    "Rd": {
+        ".": { "dir0", "dir1", "dir2" },
+        "./dir0": {},
+        "./dir1": { "dir1_A" },
+        "./dir1/dir1_A": {},
+        "./dir2": { "dir2_A", "dir2_B" },
+        "./dir2/dir2_A": {},
+        "./dir2/dir2_B": {}
+    },
+    "Rrd": {
+        ".": { "dir2", "dir1", "dir0" },
+        "./dir2": { "dir2_B", "dir2_A" },
+        "./dir2/dir2_B": {},
+        "./dir2/dir2_A": {},
+        "./dir1": { "dir1_A" },
+        "./dir1/dir1_A": {},
+        "./dir0": {}
+    },
+    "Rad": {
+        ".": { ".dirhidden", "dir0", "dir1", "dir2" },
+        "./.dirhidden": {},
+        "./dir0": {},
+        "./dir1": { "dir1_A" },
+        "./dir1/dir1_A": {},
+        "./dir2": { "dir2_A", "dir2_B" },
+        "./dir2/dir2_A": {},
+        "./dir2/dir2_B": {}
+    },
+    "Rard": {
+        ".": { "dir2", "dir1", "dir0", ".dirhidden" },
+        "./dir2": { "dir2_B", "dir2_A" },
+        "./dir2/dir2_B": {},
+        "./dir2/dir2_A": {},
+        "./dir1": { "dir1_A" },
+        "./dir1/dir1_A": {},
+        "./dir0": {},
+        "./.dirhidden": {}
+    }
+}

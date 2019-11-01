@@ -101,10 +101,7 @@ def format_directory_predicted_lines(lines, directory_information, show_all):
 class TestLs(unittest.TestCase):
 
     def test_ls_simple(self):
-        """
-        Test ls on sample folder with:
-        - combinations on {r, a}
-        - d=False, R=False
+        """ Test ls on sample folder with: combinations on {r, a} and {d=False, R=False}
         """
 
         # Iterate over the dict of predicted outputs
@@ -125,10 +122,7 @@ class TestLs(unittest.TestCase):
 
 
     def test_ls_simple_directories(self):
-        """
-        Test ls on sample folder with:
-        - combinations on {r, a}
-        - d=True, R=False
+        """ Test ls on sample folder with: combinations on {r, a} and {d=True,  R=False}
         """
 
         # Iterate over the dict of predicted outputs
@@ -154,10 +148,7 @@ class TestLs(unittest.TestCase):
 
 
     def test_ls_recursive(self):
-        """
-        Test ls on sample folder with:
-        - combinations on {r, a}
-        - d=False, R=True
+        """ Test ls on sample folder with: combinations on {r, a} and {d=False, R=True}
         """
 
         # Iterate over the dict of predicted outputs
@@ -188,10 +179,7 @@ class TestLs(unittest.TestCase):
 
 
     def test_ls_recursive_directories(self):
-        """
-        Test ls on sample folder with:
-        - combinations on {r, a}
-        - d=True, R=True
+        """ Test ls on sample folder with: combinations on {r, a} and {d=True,  R=True}
         """
 
         # Iterate over the dict of predicted outputs

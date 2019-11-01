@@ -176,73 +176,73 @@ predicted_lists_recursive = {
         "dir2/dir2_B": [ "dir2_B_filebig" ]
     },
     "Ra": {
-        "": { ".dirhidden", "dir0", "dir1", "dir2", "file0" },
-        ".dirhidden": { ".dirhidden_filehidden" },
-        "dir0": {},
-        "dir1": { "dir1_A", ".dir1_filehidden", "dir1_file0" },
-        "dir1/dir1_A": {},
-        "dir2": { "dir2_A", "dir2_B" },
-        "dir2/dir2_A": { "dir2_A_file0", "dir2_A_file1" },
-        "dir2/dir2_B": { "dir2_B_filebig" }
+        "": [ ".dirhidden", "dir0", "dir1", "dir2", "file0" ],
+        ".dirhidden": [ ".dirhidden_filehidden" ],
+        "dir0": [],
+        "dir1": [ "dir1_A", ".dir1_filehidden", "dir1_file0" ],
+        "dir1/dir1_A": [],
+        "dir2": [ "dir2_A", "dir2_B" ],
+        "dir2/dir2_A": [ "dir2_A_file0", "dir2_A_file1" ],
+        "dir2/dir2_B": [ "dir2_B_filebig" ]
     },
     "Rr": {
-        "": { "dir2", "dir1", "dir0", "file0" },
-        "dir2": { "dir2_B", "dir2_A" },
-        "dir2/dir2_B": { "dir2_B_filebig" },
-        "dir2/dir2_A": { "dir2_A_file1", "dir2_A_file0" },
-        "dir1": { "dir1_A", "dir1_file0" },
-        "dir1/dir1_A": {},
-        "dir0": {}
+        "": [ "dir2", "dir1", "dir0", "file0" ],
+        "dir2": [ "dir2_B", "dir2_A" ],
+        "dir2/dir2_B": [ "dir2_B_filebig" ],
+        "dir2/dir2_A": [ "dir2_A_file1", "dir2_A_file0" ],
+        "dir1": [ "dir1_A", "dir1_file0" ],
+        "dir1/dir1_A": [],
+        "dir0": []
     },
     "Rar": {
-        "": { "dir2", "dir1", "dir0", ".dirhidden", "file0" },
-        "dir2": { "dir2_B", "dir2_A" },
-        "dir2/dir2_B": { "dir2_B_filebig" },
-        "dir2/dir2_A": { "dir2_A_file1", "dir2_A_file0" },
-        "dir1": { "dir1_A", "dir1_file0", ".dir1_filehidden" },
-        "dir1/dir1_A": {},
-        "dir0": {},
-        ".dirhidden": { ".dirhidden_filehidden" }
+        "": [ "dir2", "dir1", "dir0", ".dirhidden", "file0" ],
+        "dir2": [ "dir2_B", "dir2_A" ],
+        "dir2/dir2_B": [ "dir2_B_filebig" ],
+        "dir2/dir2_A": [ "dir2_A_file1", "dir2_A_file0" ],
+        "dir1": [ "dir1_A", "dir1_file0", ".dir1_filehidden" ],
+        "dir1/dir1_A": [],
+        "dir0": [],
+        ".dirhidden": [ ".dirhidden_filehidden" ]
     }
 }
 
 predicted_lists_recursive_directories = {
     "Rd": {
-        ".": { "dir0", "dir1", "dir2" },
-        "./dir0": {},
-        "./dir1": { "dir1_A" },
-        "./dir1/dir1_A": {},
-        "./dir2": { "dir2_A", "dir2_B" },
-        "./dir2/dir2_A": {},
-        "./dir2/dir2_B": {}
+        "": [ "dir0", "dir1", "dir2" ],
+        "dir0": [],
+        "dir1": [ "dir1_A" ],
+        "dir1/dir1_A": [],
+        "dir2": [ "dir2_A", "dir2_B" ],
+        "dir2/dir2_A": [],
+        "dir2/dir2_B": []
     },
     "Rrd": {
-        ".": { "dir2", "dir1", "dir0" },
-        "./dir2": { "dir2_B", "dir2_A" },
-        "./dir2/dir2_B": {},
-        "./dir2/dir2_A": {},
-        "./dir1": { "dir1_A" },
-        "./dir1/dir1_A": {},
-        "./dir0": {}
+        "": [ "dir2", "dir1", "dir0" ],
+        "dir2": [ "dir2_B", "dir2_A" ],
+        "dir2/dir2_B": [],
+        "dir2/dir2_A": [],
+        "dir1": [ "dir1_A" ],
+        "dir1/dir1_A": [],
+        "dir0": []
     },
     "Rad": {
-        ".": { ".dirhidden", "dir0", "dir1", "dir2" },
-        "./.dirhidden": {},
-        "./dir0": {},
-        "./dir1": { "dir1_A" },
-        "./dir1/dir1_A": {},
-        "./dir2": { "dir2_A", "dir2_B" },
-        "./dir2/dir2_A": {},
-        "./dir2/dir2_B": {}
+        "": [ ".dirhidden", "dir0", "dir1", "dir2" ],
+        ".dirhidden": [],
+        "dir0": [],
+        "dir1": [ "dir1_A" ],
+        "dir1/dir1_A": [],
+        "dir2": [ "dir2_A", "dir2_B" ],
+        "dir2/dir2_A": [],
+        "dir2/dir2_B": []
     },
     "Rard": {
-        ".": { "dir2", "dir1", "dir0", ".dirhidden" },
-        "./dir2": { "dir2_B", "dir2_A" },
-        "./dir2/dir2_B": {},
-        "./dir2/dir2_A": {},
-        "./dir1": { "dir1_A" },
-        "./dir1/dir1_A": {},
-        "./dir0": {},
-        "./.dirhidden": {}
+        "": [ "dir2", "dir1", "dir0", ".dirhidden" ],
+        "dir2": [ "dir2_B", "dir2_A" ],
+        "dir2/dir2_B": [],
+        "dir2/dir2_A": [],
+        "dir1": [ "dir1_A" ],
+        "dir1/dir1_A": [],
+        "dir0": [],
+        ".dirhidden": []
     }
 }
